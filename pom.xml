@@ -41,8 +41,8 @@
 		<jiraComponentId>10320</jiraComponentId>
 	</properties>
     <scm>
-        <connection>scm:svn:http://dev.lutece.paris.fr/svn/lutece/portal/trunk/plugins/directory-form-workflow/module-genericattributes-googlemaps</connection>
-        <developerConnection>scm:svn:https://dev.lutece.paris.fr/svn/lutece/portal/trunk/plugins/directory-form-workflow/module-genericattributes-googlemaps</developerConnection>
-        <url>http://dev.lutece.paris.fr/viewvc/lutece/portal/trunk/plugins/directory-form-workflow/module-genericattributes-googlemaps</url>
+        <connection>scm:svn:http://dev.lutece.paris.fr/svn/lutece/portal/trunk/plugins/genericattributes/module-genericattributes-googlemaps</connection>
+        <developerConnection>scm:svn:https://dev.lutece.paris.fr/svn/lutece/portal/trunk/plugins/genericattributes/module-genericattributes-googlemaps</developerConnection>
+        <url>http://dev.lutece.paris.fr/viewvc/lutece/portal/trunk/plugins/genericattributes/module-genericattributes-googlemaps</url>
     </scm>
 </project>
