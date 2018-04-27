@@ -96,4 +96,12 @@ public class GoogleMapsProvider implements IMapProvider
         return "Google Maps Provider";
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Object getParameter( int nKey )
+    {
+        return null;
+    }
 }
