@@ -8,7 +8,7 @@
     <groupId>fr.paris.lutece.plugins</groupId>
     <artifactId>module-genericattributes-googlemaps</artifactId>
     <packaging>lutece-plugin</packaging>
-    <version>2.0.1-SNAPSHOT</version>
+    <version>2.0.1</version>
     <name>Lutece Generic Attributes google maps module</name>
     <repositories>
         <repository>
@@ -43,5 +43,6 @@
         <connection>scm:git:https://github.com/lutece-platform/lutece-genattrs-module-genericattributes-googlemaps.git</connection>
         <developerConnection>scm:git:https://github.com/lutece-platform/lutece-genattrs-module-genericattributes-googlemaps.git</developerConnection>
         <url>https://github.com/lutece-platform/lutece-genattrs-module-genericattributes-googlemaps.git</url>
-    </scm>
+      <tag>module-genericattributes-googlemaps-2.0.1</tag>
+  </scm>
 </project>
