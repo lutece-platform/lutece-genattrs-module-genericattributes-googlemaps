@@ -37,12 +37,15 @@ import fr.paris.lutece.plugins.genericattributes.business.IMapProvider;
 import fr.paris.lutece.portal.service.util.AppPropertiesService;
 import fr.paris.lutece.util.ReferenceItem;
 
+import jakarta.enterprise.context.ApplicationScoped;
+
 
 /**
  * 
  * GoogleMapsProvider : provides Google Maps support for Generic Attributes
  * 
  */
+@ApplicationScoped
 public class GoogleMapsProvider implements IMapProvider
 {
     private static final long serialVersionUID = 6224042984367506762L;
