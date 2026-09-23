@@ -1,11 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document>
 	<properties>
-		<title>Plugin</title>
+		<title>Module genericattributes-googlemaps</title>
 	</properties>
 	<body>
-		<section name="Plugin">
+		<section name="Module genericattributes-googlemaps">
 			<subsection name="Introduction">
+				<p>Ce module ajoute Google Maps aux fournisseurs de carte d'une entrée de géolocalisation (plugin-forms,
+				plugin-appointment) : l'entrée affiche une carte, un marqueur déplaçable et une recherche d'adresse.</p>
+			</subsection>
+			<subsection name="Configuration">
+				<p>L'API JavaScript Google Maps exige une clé. Elle se règle dans <code>genericattributes-googlemaps.apiKey</code>
+				(<code>WEB-INF/conf/plugins/form-googlemaps.properties</code>, un fichier de surcharge, ou la variable
+				d'environnement <code>GENERICATTRIBUTES_GOOGLEMAPS_APIKEY</code>).</p>
+				<p>La Content-Security-Policy de Lutece 8 n'autorise que les scripts du site. Ajouter un élément de
+				configuration d'en-tête de sécurité pour les pages qui affichent l'entrée (pour le front office de forms,
+				le motif d'url <code>/jsp/site/Portal.jsp**</code>) avec la politique livrée complétée de
+				<code>https://maps.googleapis.com https://maps.gstatic.com</code> dans <code>script-src</code>,
+				<code>img-src</code> et <code>connect-src</code>, et de <code>https://fonts.googleapis.com</code> dans
+				<code>style-src</code>.</p>
+				<p>Lutece 8 envoie aussi <code>Cross-Origin-Embedder-Policy: require-corp</code>, qui bloque les images
+				de carte servies par Google : les mêmes pages ont besoin d'un élément de configuration de cet en-tête
+				avec la valeur <code>credentialless</code>.</p>
 			</subsection>
 		</section>
 	</body>

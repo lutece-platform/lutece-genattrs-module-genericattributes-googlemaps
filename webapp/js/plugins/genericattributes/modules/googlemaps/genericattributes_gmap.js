@@ -3,6 +3,48 @@ if ( typeof(geocoders) == 'undefined' )
 	var geocoders = new Array(  );
 }
 
+if ( typeof(gmapCallbacks) == 'undefined' )
+{
+	var gmapCallbacks = new Array(  );
+}
+
+/**
+ * Load the Google Maps API once for the page, then run the callback
+ * @param key the Google Maps JavaScript API key
+ * @param callback the function to run once the API is loaded
+ * @return nothing
+ */
+function gmap_load( key, callback )
+{
+	if ( window.google && window.google.maps && window.google.maps.Map )
+	{
+		callback(  );
+		return;
+	}
+	gmapCallbacks.push( callback );
+	if ( document.getElementById( "genericattributes-gmap-api" ) )
+	{
+		return;
+	}
+	var script = document.createElement( "script" );
+	script.id = "genericattributes-gmap-api";
+	script.src = "https://maps.googleapis.com/maps/api/js?key=" + encodeURIComponent( key ) + "&callback=gmap_api_ready";
+	script.async = true;
+	document.head.appendChild( script );
+}
+
+/**
+ * Run the callbacks waiting for the Google Maps API
+ * @return nothing
+ */
+function gmap_api_ready(  )
+{
+	while ( gmapCallbacks.length > 0 )
+	{
+		gmapCallbacks.shift(  )(  );
+	}
+}
+
 function gmap_genericattributes( x, y, field_id, button_text ) 
 {
 	geocoders[field_id] = new google.maps.Geocoder(  );
@@ -12,7 +54,7 @@ function gmap_genericattributes( x, y, field_id, button_text )
 
 	if( X.value.length > 0 )
 	{
-		x = eval(X.value.replace(",","."));
+		x = parseFloat( X.value.replace( ",", "." ) );
 	}
 	else
 	{
@@ -21,7 +63,7 @@ function gmap_genericattributes( x, y, field_id, button_text )
 
 	if( Y.value.length > 0 )
 	{
-		y = eval(Y.value.replace(",","."));
+		y = parseFloat( Y.value.replace( ",", "." ) );
 	}
 	else
 	{
@@ -53,14 +95,21 @@ function gmap_genericattributes( x, y, field_id, button_text )
 		reverse( document.getElementById( field_id + "_address" ), event.latLng, field_id );
 	});
 	
-	var block = $("#" + field_id + "_address").parent();
-	var button = document.createElement("button");
-	$(button).append('<i class="icon-search icon-white"></i>&nbsp;' + button_text);
-	button.type="button";
-	button.id= field_id + "_gmap_button";
-	$(button).addClass("btn btn-primary btn-small");
-	block.append(button);
-	$(button).click(function () {
+	var address = document.getElementById( field_id + "_address" );
+	var button = document.createElement( "button" );
+	var icon = document.createElement( "i" );
+	icon.className = "ti ti-search me-1";
+	icon.setAttribute( "aria-hidden", "true" );
+	button.appendChild( icon );
+	button.appendChild( document.createTextNode( button_text ) );
+	button.type = "button";
+	button.id = field_id + "_gmap_button";
+	button.className = "btn btn-primary btn-sm mt-2";
+	if ( address )
+	{
+		address.parentNode.appendChild( button );
+	}
+	button.addEventListener( "click", function () {
 		var address = document.getElementById( field_id + "_address").value;
 		if ( address != null && address != ''){
 			geocoders[field_id].geocode( { 'address': address}, function(results, status) {
@@ -93,7 +142,7 @@ function gmap_view( x, y, field_id )
 
 	if( X.value.length > 0 )
 	{
-		x = eval(X.value.replace(",","."));
+		x = parseFloat( X.value.replace( ",", "." ) );
 	}
 	else
 	{
@@ -102,7 +151,7 @@ function gmap_view( x, y, field_id )
 
 	if( Y.value.length > 0 )
 	{
-		y = eval(Y.value.replace(",","."));
+		y = parseFloat( Y.value.replace( ",", "." ) );
 	}
 	else
 	{

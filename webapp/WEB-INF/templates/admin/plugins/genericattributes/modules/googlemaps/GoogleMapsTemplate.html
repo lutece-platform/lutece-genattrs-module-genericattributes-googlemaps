@@ -1,15 +1,15 @@
-<input type="hidden" id="${entry.idEntry}_map_provider" name="${entry.idEntry}_map_provider" value="${entry.mapProvider.key}"/>
-<div class="form-element" id="${entry.idEntry}_waiting" style="display:none;">
+<#assign gmapId = (idName)!(entry.idEntry?c) />
+<@input type='hidden' id='${gmapId}_map_provider' name='${gmapId}_map_provider' value='${entry.mapProvider.key}' />
+<div class="form-element" id="${gmapId}_waiting" style="display:none;">
  	#i18n{module.genericattributes.googlemaps.loading}
 </div>
-<div id="${entry.idEntry}_gmap" style="width:45%; height:300px; border:1px solid black;margin:5px 0;"></div>
-<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=true"></script>
+<div id="${gmapId}_gmap" style="width:45%; height:300px; border:1px solid black;margin:5px 0;"></div>
 <script type="text/javascript" src="js/plugins/genericattributes/modules/googlemaps/genericattributes_gmap.js"></script>
 <script type="text/javascript">
 document.addEventListener( 'DOMContentLoaded', function( )
 {
-    var idEntry = <#if entry.idEntry?has_content>${entry.idEntry}<#else>0</#if>;
-    var address = document.getElementById( '${entry.idEntry}_address' );
+    var idEntry = '${gmapId}';
+    var address = document.getElementById( idEntry + '_address' );
 
     <#-- set the coordinates back to zero as soon as the address is edited -->
     if ( address )
@@ -25,7 +25,7 @@ document.addEventListener( 'DOMContentLoaded', function( )
             if ( event.key === 'Enter' )
             {
                 event.preventDefault( );
-                var button = document.getElementById( '${entry.idEntry}_gmap_button' );
+                var button = document.getElementById( idEntry + '_gmap_button' );
                 if ( button )
                 {
                     button.click( );
@@ -34,7 +34,10 @@ document.addEventListener( 'DOMContentLoaded', function( )
         } );
     }
 
-    gmap_genericattributes( 0, 0, idEntry, "#i18n{module.genericattributes.googlemaps.button_address}" );
+    gmap_load( '${(entry.mapProvider.apiKey!'')?js_string}', function( )
+    {
+        gmap_genericattributes( 0, 0, idEntry, "#i18n{module.genericattributes.googlemaps.button_address}" );
+    } );
 } );
 </script>
 <noscript>#i18n{module.genericattributes.googlemaps.javascript.disabled}</noscript>
