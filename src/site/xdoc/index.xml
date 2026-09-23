@@ -1,11 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document>
 	<properties>
-		<title>Plugin</title>
+		<title>Module genericattributes-googlemaps</title>
 	</properties>
 	<body>
-		<section name="Plugin">
+		<section name="Module genericattributes-googlemaps">
 			<subsection name="Introduction">
+				<p>This module adds Google Maps to the map providers of a geolocation entry (plugin-forms, plugin-appointment):
+				the entry renders a map, a marker the user moves and an address search.</p>
+			</subsection>
+			<subsection name="Configuration">
+				<p>The Google Maps JavaScript API needs a key. Set it in <code>genericattributes-googlemaps.apiKey</code>
+				(<code>WEB-INF/conf/plugins/form-googlemaps.properties</code>, an override file, or the environment variable
+				<code>GENERICATTRIBUTES_GOOGLEMAPS_APIKEY</code>).</p>
+				<p>The Content-Security-Policy of Lutece 8 allows scripts from the site only. Add a security header
+				configuration item for the pages that show the entry (for the forms front office, the url pattern
+				<code>/jsp/site/Portal.jsp**</code>) with the shipped policy completed with
+				<code>https://maps.googleapis.com https://maps.gstatic.com</code> in <code>script-src</code>,
+				<code>img-src</code> and <code>connect-src</code>, and <code>https://fonts.googleapis.com</code> in
+				<code>style-src</code>.</p>
+				<p>Lutece 8 also sends <code>Cross-Origin-Embedder-Policy: require-corp</code>, which blocks the map
+				images Google serves: the same pages need a configuration item of that header with the value
+				<code>credentialless</code>.</p>
 			</subsection>
 		</section>
 	</body>

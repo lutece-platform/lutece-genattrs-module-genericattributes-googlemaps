@@ -51,11 +51,13 @@ public class GoogleMapsProvider implements IMapProvider
     private static final long serialVersionUID = 6224042984367506762L;
     private static final String PROPERTY_KEY = "genericattributes-googlemaps.key";
     private static final String PROPERTY_DISPLAYED_NAME = "genericattributes-googlemaps.displayName";
+    private static final String PROPERTY_API_KEY = "genericattributes-googlemaps.apiKey";
     private static final String TEMPLATE_HTML = "/admin/plugins/genericattributes/modules/googlemaps/GoogleMapsTemplate.html";
 
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getKey( )
     {
         return AppPropertiesService.getProperty( PROPERTY_KEY );
@@ -64,6 +66,7 @@ public class GoogleMapsProvider implements IMapProvider
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getDisplayedName( )
     {
         return AppPropertiesService.getProperty( PROPERTY_DISPLAYED_NAME );
@@ -72,14 +75,26 @@ public class GoogleMapsProvider implements IMapProvider
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getHtmlCode( )
     {
         return TEMPLATE_HTML;
     }
 
     /**
+     * Gives the Google Maps JavaScript API key the map template loads the API with.
+     *
+     * @return the API key, empty when none is configured
+     */
+    public String getApiKey( )
+    {
+        return AppPropertiesService.getProperty( PROPERTY_API_KEY, "" );
+    }
+
+    /**
      * {@inheritDoc}
      */
+    @Override
     public ReferenceItem toRefItem( )
     {
         ReferenceItem refItem = new ReferenceItem( );
